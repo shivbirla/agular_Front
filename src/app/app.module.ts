@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,8 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { ChildComponent } from './child/child.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PopUpComponent } from './pop-up/pop-up.component';
 
 
 @NgModule({
@@ -17,7 +20,8 @@ import { ChildComponent } from './child/child.component';
     EmployeeListComponent,
     CreateEmployeeComponent,
     EmployeeDetailComponent,
-    ChildComponent
+    ChildComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,
@@ -25,8 +29,11 @@ import { ChildComponent } from './child/child.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

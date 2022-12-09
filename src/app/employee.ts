@@ -1,5 +1,6 @@
 
 
+
 export class Employee {
     id: number;
     firstName: String;
@@ -7,5 +8,6 @@ export class Employee {
     emailId: String;
     gender:String;
     hobbies:String;
+    fileSend:any;
     
 }

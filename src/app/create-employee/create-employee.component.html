@@ -46,6 +46,13 @@
             <input type="checkbox" formControlName="hobbies" [checked]="h.select" [(ngModel)]="h.select"> {{h.value}}&nbsp;
             </span>
         </div>
+        <br>
+        <div class="form-group">
+            <input type="file" class="file-input"  (change)="selectFile($event)" > 
+            <input type="button" (click)="uploadfile()" class="btn btn-success" value=upload>
+
+        </div>
+        
         <button [disabled]="reactiveForm.invalid" class="btn btn-success" type="submit">submit</button>
     </form>
 </div>

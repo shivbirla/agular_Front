@@ -15,8 +15,6 @@ export class AppComponent{
   addItem(newItem: string) {
     this.items.push(newItem);
   }
-
-
   
   title = 'angular CRUD operations';
   reactiveForm:FormGroup;

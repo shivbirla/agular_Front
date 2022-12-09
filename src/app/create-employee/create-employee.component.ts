@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
+import { fileSend } from '../fileSend';
 
 
 @Component({
@@ -13,8 +15,15 @@ import { EmployeeService } from '../employee.service';
 export class CreateEmployeeComponent implements OnInit {
 
   employee: Employee = new Employee();
+  fileSend: fileSend= new fileSend();
   reactiveForm: any;
   id: number;
+  loading: boolean = false; // Flag variable
+  fileName='';
+  fileUpload:any;
+  formData:FormData;
+  
+
 
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute) {
 
@@ -22,7 +31,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   saveEmployee() {
     this.employeeService.createEmployee(this.employee).subscribe(data => {
-      console.log(data)
+
       this.gotoEmployeeList();
     }),
       error => console.error(error);
@@ -48,17 +57,10 @@ export class CreateEmployeeComponent implements OnInit {
          if(arr.map){
           this.saveHobbies[i].select=true
           console.log(h);
+          
          
          }
-      //    if(h.indexOf("Football") !== -1){
-      //   this.saveHobbies[i].select=true
-      //    console.log(h);
-      
-      //   }
-      //   if(h.indexOf("Tenish"))
-      //   this.saveHobbies[i].select=true
-      //   console.log(h);
-       
+    
       }
     
      console.log(data.hobbies)     
@@ -72,7 +74,8 @@ export class CreateEmployeeComponent implements OnInit {
       lastName: new FormControl(null, [Validators.required,Validators.pattern('[a-zA-Z]+$'),this.noSpaceAllowed]),
       emailId: new FormControl(null, [Validators.required, Validators.email]),
       gender:new FormControl(null,Validators.required),
-      hobbies:new FormControl(null)
+      hobbies:new FormControl(null),
+      fileSend:new FormControl(null)
     });
   }
   
@@ -94,9 +97,18 @@ export class CreateEmployeeComponent implements OnInit {
        str = str+this.saveHobbies[i].value+",";    
       }  
     } 
+    // this.employeeService.uploadFile(this.formData).subscribe(data=>{
+    //      console.log("API called**************************"+data);
+    //    this.fileSend.id=data;
+    //    console.log(this.fileSend)
+    //    this.employee.fileSend = this.fileSend;
+    //     })
+    
     this.employee.hobbies = str.substring(0, str.length-1);
     console.log(this.reactiveForm);
+   
     this.saveEmployee();
+    
   }
 
 get emailId(){
@@ -117,6 +129,9 @@ get gender(){
 get hobbies(){
   return this.reactiveForm.get('hobbies.value');
 }
+get uploadFile(){
+  return this.reactiveForm.get('uploadFile.value');
+}
 
 noSpaceAllowed(control:FormControl){
    if(control.value!=null && control.value.indexOf(' ')!=-1){
@@ -125,4 +140,23 @@ noSpaceAllowed(control:FormControl){
    return null;
 }
 
+selectFile(event: any){
+  console.log("www " +event)
+  this.fileUpload = event.target.files[0];
 }
+
+  uploadfile(){
+
+    this.formData = new FormData();
+    
+     this.formData.append("file", this.fileUpload);
+     this.employeeService.uploadFile(this.formData).subscribe(data=>{
+      console.log("API called");
+     })
+      console.log(this.formData); 
+      //  this.employee.fileSend=this.formData;
+      
+     console.log("Form data is :: "+this.formData.get)
+    }
+}
+        

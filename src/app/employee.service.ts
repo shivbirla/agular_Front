@@ -12,6 +12,7 @@ export class EmployeeService {
 
   constructor(private httpClient: HttpClient) { }
 
+  
   getEmployeesList(): Observable<Employee[]>{
     return this.httpClient.get<Employee[]>(`${this.baseUrl}`);
   }
@@ -21,6 +22,11 @@ export class EmployeeService {
     return this.httpClient.post(`${this.baseUrl}`,employee);
   }
 
+  uploadFile(formdata:FormData):Observable<any>{
+    console.log("file Upload called")
+    //  return this.httpClient.post(`${this.baseUrl}/file`,formdata);
+     return this.httpClient.post(`${this.baseUrl}/formdata`,formdata);
+  }
   getEmployeeById(id:number):Observable<Employee>{
     return this.httpClient.get<Employee>(`${this.baseUrl}/${id}`);
   } 

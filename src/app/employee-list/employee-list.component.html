@@ -1,5 +1,5 @@
 <h3>Employee List</h3>
-<table style="width: 100%">
+<table style="width: 120%">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -9,6 +9,7 @@
                 <th>Email Id</th>
                 <th>Gender</th>
                 <th>Hobbies</th>
+                <th>File</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{employee.emailId}}</td>
                 <td>{{employee.gender}}</td>
                 <td>{{employee.hobbies}}</td>
+                <td>{{employee.fileSend}}</td>
                 <td>
                     <button (click)="updateEmployee(employee.id)" class="btn btn-info">update</button>
 
