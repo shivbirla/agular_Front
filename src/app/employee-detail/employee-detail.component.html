@@ -20,4 +20,10 @@
     <div>
         <label><b>Hobbies: </b></label>&nbsp;  {{employee.hobbies}}
     </div>
+    <div>
+        <label><b>File_ID: </b></label>&nbsp;  {{employee.fileData.id}}
+    </div>
 </div>
+<div><input type="button" (click)="getEmployeeFile(employee.fileData.id)" value="GET">
+    
+    <img [src]="imagePath">

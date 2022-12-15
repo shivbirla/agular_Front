@@ -13,7 +13,8 @@ const routes: Routes = [
     {path:'update-employee/:id',component:CreateEmployeeComponent},
     {path:'employee-detail/:id',component:EmployeeDetailComponent},
     {path:'ChildComponent',component:ChildComponent},
-    {path:'PopUpComponent',component:PopUpComponent}
+    {path:'PopUpComponent',component:PopUpComponent},
+    {path:'employee-file/:file_id',component:EmployeeDetailComponent},
 
     
 ];

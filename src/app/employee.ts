@@ -1,13 +1,14 @@
+import { fileUpload } from "./fileUpload";
 
 
 
 export class Employee {
-    id: number;
-    firstName: String;
-    lastName: String;
-    emailId: String;
-    gender:String;
-    hobbies:String;
-    fileSend:any;
+    public    id: number;
+    public    firstName: String;
+    public    lastName: String;
+    public    emailId: String;
+    public    gender:String;
+    public   hobbies:String;
+    public   fileData:fileUpload;
     
 }

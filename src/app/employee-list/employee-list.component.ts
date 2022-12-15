@@ -52,12 +52,7 @@ hobbies: any;
     this.openDialog(id)
      
      }
-    //  deleteFromPop(id :number){
-    //    this.employeeService.deleteEmployee(id).subscribe(data=>{
-    //    console.log("delete employee called")
-    //    console.log(data);
-    //   this.getEmployees();
-    //  })}
+
 
   employeeDetail(id : number){
     this.router.navigate(['employee-detail',id])

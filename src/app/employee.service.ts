@@ -19,12 +19,13 @@ export class EmployeeService {
 
   createEmployee(employee : Employee):Observable<object>{
     console.log("create Employee called");
+    console.warn(employee)
     return this.httpClient.post(`${this.baseUrl}`,employee);
   }
 
   uploadFile(formdata:FormData):Observable<any>{
-    console.log("file Upload called")
-    //  return this.httpClient.post(`${this.baseUrl}/file`,formdata);
+    console.warn("file Upload called from service")
+      // return this.httpClient.post(`${this.baseUrl}/file`,formdata);
      return this.httpClient.post(`${this.baseUrl}/formdata`,formdata);
   }
   getEmployeeById(id:number):Observable<Employee>{
@@ -38,4 +39,8 @@ export class EmployeeService {
   deleteEmployee(id:number):Observable<Object>{
     return this.httpClient.delete(`${this.baseUrl}/${id}`)
   }
+
+  getEmployeeFileById(file_id:any):Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrl}/file/${file_id}`);
+  } 
 }

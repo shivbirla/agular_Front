@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
-import { fileSend } from '../fileSend';
+import {  fileUpload } from '../fileUpload';
 
 
 @Component({
@@ -15,18 +15,18 @@ import { fileSend } from '../fileSend';
 export class CreateEmployeeComponent implements OnInit {
 
   employee: Employee = new Employee();
-  fileSend: fileSend= new fileSend();
+  file:any;
   reactiveForm: any;
   id: number;
-  loading: boolean = false; // Flag variable
-  fileName='';
-  fileUpload:any;
+
+  // fileName;
+  // fileUpload:any;
   formData:FormData;
   
 
 
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute) {
-
+    
   }
 
   saveEmployee() {
@@ -47,35 +47,27 @@ export class CreateEmployeeComponent implements OnInit {
     if(this.id){
     this.employeeService.getEmployeeById(this.id).subscribe(data => {
       var arr = data.hobbies.split(',')
+
        let n =arr.length
        for(let i=0;i<n;i++){
        var h= arr[i];
-       console.log(h);
-       console.log(n);
-       console.log('======================================');
-
+    
          if(arr.map){
-          this.saveHobbies[i].select=true
-          console.log(h);
-          
-         
+          this.saveHobbies[i].select=true          
          }
     
       }
     
-     console.log(data.hobbies)     
       this.employee = data;
      
-    })}
+    })}    
   
-
     this.reactiveForm = new FormGroup({
       firstName: new FormControl(null, [Validators.required,Validators.pattern('[a-zA-Z]+$'),this.noSpaceAllowed]),
       lastName: new FormControl(null, [Validators.required,Validators.pattern('[a-zA-Z]+$'),this.noSpaceAllowed]),
       emailId: new FormControl(null, [Validators.required, Validators.email]),
       gender:new FormControl(null,Validators.required),
-      hobbies:new FormControl(null),
-      fileSend:new FormControl(null)
+      hobbies:new FormControl(null,),
     });
   }
   
@@ -89,24 +81,15 @@ export class CreateEmployeeComponent implements OnInit {
   
   onSubmit() {
 
-    this.employee.hobbies="";
-    
+    this.employee.hobbies="";  
      var str = "";
      for (let i = 0; i <this.saveHobbies.length; i++) {    
       if(this.saveHobbies[i].select){
        str = str+this.saveHobbies[i].value+",";    
       }  
     } 
-    // this.employeeService.uploadFile(this.formData).subscribe(data=>{
-    //      console.log("API called**************************"+data);
-    //    this.fileSend.id=data;
-    //    console.log(this.fileSend)
-    //    this.employee.fileSend = this.fileSend;
-    //     })
     
     this.employee.hobbies = str.substring(0, str.length-1);
-    console.log(this.reactiveForm);
-   
     this.saveEmployee();
     
   }
@@ -129,9 +112,6 @@ get gender(){
 get hobbies(){
   return this.reactiveForm.get('hobbies.value');
 }
-get uploadFile(){
-  return this.reactiveForm.get('uploadFile.value');
-}
 
 noSpaceAllowed(control:FormControl){
    if(control.value!=null && control.value.indexOf(' ')!=-1){
@@ -141,22 +121,26 @@ noSpaceAllowed(control:FormControl){
 }
 
 selectFile(event: any){
-  console.log("www " +event)
-  this.fileUpload = event.target.files[0];
+  const fup  = event.target.files[0];
+   this.file = fup;
 }
 
   uploadfile(){
 
     this.formData = new FormData();
-    
-     this.formData.append("file", this.fileUpload);
+    console.warn('upload is called')   
+     this.formData.append("file", this.file);
      this.employeeService.uploadFile(this.formData).subscribe(data=>{
       console.log("API called");
-     })
-      console.log(this.formData); 
-      //  this.employee.fileSend=this.formData;
-      
-     console.log("Form data is :: "+this.formData.get)
+      this.employee.fileData=data;
+     
+     })     
+    } 
+
+    hob(h : any){
+      console.warn(h)
+     h.select = !h.select;
+     console.warn(h)
     }
-}
+  }  
         

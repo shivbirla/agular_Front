@@ -11,11 +11,11 @@ import { EmployeeService } from '../employee.service';
 })
 export class PopUpComponent implements OnInit {
 
-  matdialogRef:MatDialog;
+  // matdialogRef:MatDialog;
   id:number;
 
   constructor(@Inject (MAT_DIALOG_DATA) public data,private router: Router,private employeeService: EmployeeService,public matDial:MatDialogRef<PopUpComponent>){
-    this.matdialogRef= data.dialogRef;
+    // this.matdialogRef= data.dialogRef;
     this.id=data.id;
   }
 
@@ -30,6 +30,7 @@ export class PopUpComponent implements OnInit {
   delete(id:number){
     console.log(id)
     this.employeeService.deleteEmployee(id).subscribe(data=>{
+    
       console.log("delete employee called")
       window.location.reload();
       console.log(data);

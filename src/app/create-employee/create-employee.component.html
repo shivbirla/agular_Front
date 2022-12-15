@@ -43,14 +43,14 @@
         <div class="form-group"><label >Hobbies</label></div>
         <div>
             <span *ngFor="let h of saveHobbies">
-            <input type="checkbox" formControlName="hobbies" [checked]="h.select" [(ngModel)]="h.select"> {{h.value}}&nbsp;
+            <input type="checkbox" formControlName="hobbies"  [checked]="h.select"  (change)="hob(h)"> {{h.value}}&nbsp;
             </span>
         </div>
         <br>
         <div class="form-group">
-            <input type="file" class="file-input"  (change)="selectFile($event)" > 
+            <input type="file" class="file-input"  (change)="selectFile($event)" multiple> 
             <input type="button" (click)="uploadfile()" class="btn btn-success" value=upload>
-
+    
         </div>
         
         <button [disabled]="reactiveForm.invalid" class="btn btn-success" type="submit">submit</button>
